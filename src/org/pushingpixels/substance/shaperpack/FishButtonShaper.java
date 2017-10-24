@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2010 Substance Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2005-2017 Substance Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,7 +31,7 @@ package org.pushingpixels.substance.shaperpack;
 
 public class FishButtonShaper extends BasePolygonShaper {
 	public FishButtonShaper() {
-		super("org/jvnet/substance/shaperpack/fish.shape", 0.6, 1.0, 0.6, 1.0);
+		super("org/pushingpixels/substance/shaperpack/fish.shape", 0.6, 1.0, 0.6, 1.0);
 	}
 
 	public String getDisplayName() {

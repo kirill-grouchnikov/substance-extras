@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2010 Substance Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2005-2017 Substance Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -29,7 +29,17 @@
  */
 package org.pushingpixels.substance.painterpack.fill;
 
-import java.awt.*;
+import java.awt.AlphaComposite;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.RenderingHints;
+import java.awt.Shape;
+import java.awt.Transparency;
 import java.awt.geom.GeneralPath;
 import java.awt.image.BufferedImage;
 
@@ -94,9 +104,8 @@ public abstract class WaveDelegateFillPainter implements SubstanceFillPainter {
 	}
 
 	@Override
-	public void paintContourBackground(Graphics g, Component comp, int width,
-			int height, Shape contour, boolean isFocused,
-			SubstanceColorScheme fillScheme, boolean hasShine) {
+	public void paintContourBackground(Graphics g, Component comp, float width, float height,
+	        Shape contour, boolean isFocused, SubstanceColorScheme fillScheme, boolean hasShine) {
 		GeneralPath clipBottom = new GeneralPath();
 		clipBottom.moveTo(0, height);
 		clipBottom.lineTo(width, height);
@@ -107,11 +116,13 @@ public abstract class WaveDelegateFillPainter implements SubstanceFillPainter {
 				7 * height / 8);
 		clipBottom.lineTo(0, height);
 
-		BufferedImage clipShapeBottom = createClipImage(clipBottom, width,
-				height);
+        int iWidth = (int) Math.ceil(width);
+        int iHeight = (int) Math.ceil(height);
+		BufferedImage clipShapeBottom = createClipImage(clipBottom, iWidth,
+		        iHeight);
 
-		BufferedImage bottomImage = SubstanceCoreUtilities.getBlankImage(width,
-				height);
+		BufferedImage bottomImage = SubstanceCoreUtilities.getBlankImage(iWidth,
+		        iHeight);
 		Graphics2D bottomGraphics = (Graphics2D) bottomImage.getGraphics();
 		bottomGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
@@ -141,8 +152,8 @@ public abstract class WaveDelegateFillPainter implements SubstanceFillPainter {
 				height, contour, isFocused, bottomColorScheme, hasShine);
 		// bottomGraphics.drawImage(bottomFullImage, 0, 0, null);
 
-		BufferedImage image = SubstanceCoreUtilities.getBlankImage(width,
-				height);
+		BufferedImage image = SubstanceCoreUtilities.getBlankImage(iWidth,
+				iHeight);
 		Graphics2D graphics = (Graphics2D) image.getGraphics();
 		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);

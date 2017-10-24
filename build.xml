@@ -19,7 +19,7 @@
 	<!-- JDK definitions -->
 
 	<path id="jdk.classpath">
-		<fileset dir="${jdk.home}">
+		<fileset dir="${java.home}">
 			<include name="jre/lib/charsets.jar" />
 			<include name="jre/lib/deploy.jar" />
 			<include name="jre/lib/javaws.jar" />
@@ -34,8 +34,8 @@
 		</fileset>
 	</path>
 
-	<property name="project.jdk.home" value="${jdk.home}" />
-	<property name="project.jdk.classpath" value="jdk.classpath" />
+    <property name="project.jdk.home" value="${java.home}" />
+    <property name="project.jdk.classpath" value="jdk.classpath" />
 	<!-- Project Libraries -->
 	<!-- Global Libraries -->
 
@@ -49,7 +49,11 @@
 	<property name="substance-extras.output.dir" value="${substance-extras.build.dir}/classes" />
 	<property name="substance-extras.drop.dir" value="${module.substance-extras.basedir}/drop" />
 	<property name="substance-extras.src.dir" value="${module.substance-extras.basedir}/src/" />
-	<property name="substance.version" value="6.0final Sonoma" />
+
+    <property name="substance.basedir" value="${module.substance-extras.basedir}/../substance" />
+
+	<property name="substance.version" value="8.0.00-dev" />
+    <property name="substance.versionKey" value="8.0.0dev Wyoming" />
 
 	<path id="substance-extras.module.bootclasspath">
 		<!-- Paths to be included in compilation bootclasspath -->
@@ -60,10 +64,10 @@
 
 	<path id="substance-extras.module.classpath">
 		<path refid="${module.jdk.classpath.substance-extras}" />
-        <pathelement location="${module.substance-extras.basedir}/../substance/drop/substance.jar"/>
-        <pathelement location="${module.substance-extras.basedir}/../substance/drop/substance-tst.jar"/>
-        <pathelement location="${module.substance-extras.basedir}/../substance/drop/substance-tools.jar"/>
-        <pathelement location="${module.substance-extras.basedir}/../substance/lib/forms-1.2.0.jar"/>
+        <pathelement location="${substance.basedir}/drop/${substance.version}/substance-${substance.version}.jar" />
+        <pathelement location="${substance.basedir}/drop/${substance.version}/substance-tst-${substance.version}.jar" />
+        <pathelement location="${substance.basedir}/drop/${substance.version}/substance-tools-${substance.version}.jar" />
+        <pathelement location="${substance.basedir}/lib/forms-1.2.0.jar"/>
 	</path>
 
 	<patternset id="excluded.from.module.substance-extras" />
@@ -96,7 +100,7 @@
 
 	<target name="compile.module.substance-extras.production" description="compile module substance-extras production classes">
 		<mkdir dir="${substance-extras.output.dir}" />
-		<javac source="${javac.source}" target="${javac.target}" encoding="${javac.encoding}" destdir="${substance-extras.output.dir}" debug="${javac.debug}" nowarn="${javac.generate.no.warnings}" memoryMaximumSize="${javac.max.memory}" fork="true" executable="${module.jdk.home.substance-extras}/bin/javac">
+		<javac source="${javac.source}" target="${javac.target}" encoding="${javac.encoding}" destdir="${substance-extras.output.dir}" debug="${javac.debug}" nowarn="${javac.generate.no.warnings}" memoryMaximumSize="${javac.max.memory}" fork="true">
 			<compilerarg line="${javac.args.substance-extras}" />
 			<bootclasspath refid="substance-extras.module.bootclasspath" />
 			<classpath refid="substance-extras.module.classpath" />
@@ -114,7 +118,7 @@
 
 	<target name="compile.module.substance-extras.tests"  description="compile module substance-extras test classes" unless="skip.tests">
 		<mkdir dir="${substance-extras.output.dir}" />
-		<javac source="${javac.source}" target="${javac.target}" encoding="${javac.encoding}" destdir="${substance-extras.output.dir}" debug="${javac.debug}" nowarn="${javac.generate.no.warnings}" memoryMaximumSize="${javac.max.memory}" fork="true" executable="${module.jdk.home.substance-extras}/bin/javac">
+		<javac source="${javac.source}" target="${javac.target}" encoding="${javac.encoding}" destdir="${substance-extras.output.dir}" debug="${javac.debug}" nowarn="${javac.generate.no.warnings}" memoryMaximumSize="${javac.max.memory}" fork="true">
 			<compilerarg line="${javac.args.substance-extras}" />
 			<bootclasspath refid="substance-extras.module.bootclasspath" />
 			<classpath refid="substance-extras.module.classpath" />
@@ -132,7 +136,7 @@
 
 	<target name="compile.module.substance-extras.tools" description="compile module substance tool classes">
 		<mkdir dir="${substance-extras.output.dir}" />
-		<javac source="${javac.source}" target="${javac.target}" encoding="${javac.encoding}" destdir="${substance-extras.output.dir}" debug="${javac.debug}" nowarn="${javac.generate.no.warnings}" memoryMaximumSize="${javac.max.memory}" fork="true" executable="${module.jdk.home.substance-extras}/bin/javac">
+		<javac source="${javac.source}" target="${javac.target}" encoding="${javac.encoding}" destdir="${substance-extras.output.dir}" debug="${javac.debug}" nowarn="${javac.generate.no.warnings}" memoryMaximumSize="${javac.max.memory}" fork="true">
 			<compilerarg line="${javac.args.substance-extras}" />
 			<bootclasspath refid="substance-extras.module.bootclasspath" />
 			<classpath refid="substance-extras.module.classpath" />
@@ -157,35 +161,33 @@
 	</target>
 
 	<target name="jar-bin" description="create runtime jar">
-		<delete file="${substance-extras.drop.dir}/substance-extras.jar" />
-		<mkdir dir="${substance-extras.drop.dir}"/>
-		<jar compress="true" destfile="${substance-extras.drop.dir}/substance-extras.jar">
+        <mkdir dir="${substance-extras.drop.dir}/${substance.version}"/>
+		<delete file="${substance-extras.drop.dir}/${substance.version}/substance-extras-${substance.version}.jar" />
+		<jar compress="true" destfile="${substance-extras.drop.dir}/${substance.version}/substance-extras-${substance.version}.jar">
 			<fileset dir="${substance-extras.output.dir}/" excludes="test/** tools/**" />
 			<fileset dir="${module.substance-extras.basedir}/" includes="resources/**" />
 			<manifest>
-				<attribute name="Substance-Version" value="${substance.version}" />
+                <attribute name="Substance-Version" value="${substance.versionKey}" />
 				<attribute name="Substance-Extras-BuildStamp" value="${build.time}" />
 			</manifest>
 		</jar>
-		<copy file="${substance-extras.drop.dir}/substance-extras.jar" todir="${module.substance-extras.basedir}/www/webstart" />
 	</target>
 
 	<target name="jar-bin-tst" description="create test runtime jar">
-		<delete file="${substance-extras.drop.dir}/substance-extras-tst.jar" />
-		<jar destfile="${substance-extras.drop.dir}/substance-extras-tst.jar">
+		<delete file="${substance-extras.drop.dir}/${substance.version}/substance-extras-tst-${substance.version}.jar" />
+		<jar destfile="${substance-extras.drop.dir}/${substance.version}/substance-extras-tst-${substance.version}.jar">
 			<fileset dir="${substance-extras.output.dir}/" includes="test/**/*.class" />
             <fileset dir="${substance-extras.src.dir}/" includes="test/resource/**" />
 			<manifest>
-				<attribute name="Substance-Version" value="${substance.version}" />
+                <attribute name="Substance-Version" value="${substance.versionKey}" />
 				<attribute name="Substance-Extras-BuildStamp" value="${build.time}" />
 			</manifest>
 		</jar>
-		<copy file="${substance-extras.drop.dir}/substance-extras-tst.jar" todir="${module.substance-extras.basedir}/www/webstart" />
 	</target>
 
 	<target name="jar-bin-tools" description="create tools runtime jar">
-		<delete file="${substance-extras.drop.dir}/substance-extras-tools.jar" />
-		<jar destfile="${substance-extras.drop.dir}/substance-extras-tools.jar">
+		<delete file="${substance-extras.drop.dir}/${substance.version}/substance-extras-tools-${substance.version}.jar" />
+		<jar destfile="${substance-extras.drop.dir}/${substance.version}/substance-extras-tools-${substance.version}.jar">
             <fileset dir="${substance-extras.output.dir}/" includes="tools/**/*.class tools/**/*.jpg" />
 			<manifest>
 				<attribute name="Substance-Version" value="${substance.versionKey}" />

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2010 Substance Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2005-2017 Substance Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -29,7 +29,12 @@
  */
 package org.pushingpixels.substance.painterpack.fill;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Shape;
 import java.awt.geom.GeneralPath;
 import java.awt.image.BufferedImage;
 
@@ -38,84 +43,77 @@ import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 /**
- * Fill painter that returns images with flat appearance and wavy color areas.
- * This class is part of officially supported API.
+ * Fill painter that returns images with flat appearance and wavy color areas. This class is part of
+ * officially supported API.
  * 
  * @author Kirill Grouchnikov
  */
 public class WaveFillPainter implements SubstanceFillPainter {
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.pushingpixels.substance.painter.SubstanceGradientPainter#getDisplayName
-	 * ()
-	 */
-	public String getDisplayName() {
-		return "Wave";
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.pushingpixels.substance.painter.SubstanceGradientPainter#getDisplayName ()
+     */
+    public String getDisplayName() {
+        return "Wave";
+    }
 
-	@Override
-	public void paintContourBackground(Graphics g, Component comp, int width,
-			int height, Shape contour, boolean isFocused,
-			SubstanceColorScheme fillScheme, boolean hasShine) {
-		// create rectangular background and later draw it on
-		// result image with contour clip.
-		BufferedImage rectangular = SubstanceCoreUtilities.getBlankImage(width,
-				height);
-		Graphics2D rgraphics = (Graphics2D) rectangular.getGraphics();
+    @Override
+    public void paintContourBackground(Graphics g, Component comp, float width, float height,
+            Shape contour, boolean isFocused, SubstanceColorScheme fillScheme, boolean hasShine) {
+        int iWidth = (int) Math.ceil(width);
+        int iHeight = (int) Math.ceil(height);
+        // create rectangular background and later draw it on
+        // result image with contour clip.
+        BufferedImage rectangular = SubstanceCoreUtilities.getBlankImage(iWidth, iHeight);
+        Graphics2D rgraphics = (Graphics2D) rectangular.getGraphics();
 
-		Color lightFillColor = fillScheme.getUltraLightColor();
-		Color midFillColor = fillScheme.getLightColor();
-		Color darkFillColor = fillScheme.getMidColor();
+        Color lightFillColor = fillScheme.getUltraLightColor();
+        Color midFillColor = fillScheme.getLightColor();
+        Color darkFillColor = fillScheme.getMidColor();
 
-		// Fill background
-		GradientPaint gradientTop = new GradientPaint(0, 0, lightFillColor,
-				width / 4, height / 2, midFillColor);
-		GeneralPath clipTop = new GeneralPath();
-		clipTop.moveTo(0, 0);
-		clipTop.lineTo(width, 0);
-		clipTop.curveTo(5 * width / 6, height / 3, 3 * width / 4, height / 2,
-				width / 2, height / 2);
-		clipTop.curveTo(width / 3, height / 2, width / 4, height, 0,
-				7 * height / 8);
-		clipTop.lineTo(0, 0);
+        // Fill background
+        GradientPaint gradientTop = new GradientPaint(0, 0, lightFillColor, width / 4, height / 2,
+                midFillColor);
+        GeneralPath clipTop = new GeneralPath();
+        clipTop.moveTo(0, 0);
+        clipTop.lineTo(width, 0);
+        clipTop.curveTo(5 * width / 6, height / 3, 3 * width / 4, height / 2, width / 2,
+                height / 2);
+        clipTop.curveTo(width / 3, height / 2, width / 4, height, 0, 7 * height / 8);
+        clipTop.lineTo(0, 0);
 
-		rgraphics.setClip(clipTop);
-		rgraphics.setPaint(gradientTop);
-		rgraphics.fillRect(0, 0, width, height);
+        rgraphics.setClip(clipTop);
+        rgraphics.setPaint(gradientTop);
+        rgraphics.fillRect(0, 0, iWidth, iHeight);
 
-		GradientPaint gradientBottom = new GradientPaint(2 * width / 3,
-				2 * height / 3, darkFillColor, width, height, midFillColor);
+        GradientPaint gradientBottom = new GradientPaint(2 * width / 3, 2 * height / 3,
+                darkFillColor, width, height, midFillColor);
 
-		GeneralPath clipBottom = new GeneralPath();
-		clipBottom.moveTo(0, height);
-		clipBottom.lineTo(width, height);
-		clipBottom.lineTo(width, 0);
-		clipBottom.curveTo(5 * width / 6, height / 3, 3 * width / 4,
-				height / 2, width / 2, height / 2);
-		clipBottom.curveTo(width / 3, height / 2, width / 4, height, 0,
-				7 * height / 8);
-		clipBottom.lineTo(0, height);
+        GeneralPath clipBottom = new GeneralPath();
+        clipBottom.moveTo(0, height);
+        clipBottom.lineTo(width, height);
+        clipBottom.lineTo(width, 0);
+        clipBottom.curveTo(5 * width / 6, height / 3, 3 * width / 4, height / 2, width / 2,
+                height / 2);
+        clipBottom.curveTo(width / 3, height / 2, width / 4, height, 0, 7 * height / 8);
+        clipBottom.lineTo(0, height);
 
-		rgraphics.setClip(clipBottom);
-		rgraphics.setPaint(gradientBottom);
-		rgraphics.fillRect(0, 0, width, height);
+        rgraphics.setClip(clipBottom);
+        rgraphics.setPaint(gradientBottom);
+        rgraphics.fillRect(0, 0, iWidth, iHeight);
 
-		rgraphics.setClip(null);
-		GeneralPath mid = new GeneralPath();
-		mid.moveTo(width, 0);
-		mid.curveTo(5 * width / 6, height / 3, 3 * width / 4, height / 2,
-				width / 2, height / 2);
-		mid
-				.curveTo(width / 3, height / 2, width / 4, height, 0,
-						7 * height / 8);
-		rgraphics.draw(mid);
+        rgraphics.setClip(null);
+        GeneralPath mid = new GeneralPath();
+        mid.moveTo(width, 0);
+        mid.curveTo(5 * width / 6, height / 3, 3 * width / 4, height / 2, width / 2, height / 2);
+        mid.curveTo(width / 3, height / 2, width / 4, height, 0, 7 * height / 8);
+        rgraphics.draw(mid);
 
-		Graphics2D graphics = (Graphics2D) g.create();
+        Graphics2D graphics = (Graphics2D) g.create();
 
-		graphics.setClip(contour);
-		graphics.drawImage(rectangular, 0, 0, null);
-		graphics.dispose();
-	}
+        graphics.setClip(contour);
+        graphics.drawImage(rectangular, 0, 0, null);
+        graphics.dispose();
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2010 Substance Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2005-2017 Substance Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -29,8 +29,10 @@
  */
 package org.pushingpixels.substance.shaperpack;
 
-import java.awt.*;
-import java.awt.geom.GeneralPath;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Insets;
+import java.awt.Shape;
 import java.io.InputStream;
 
 import javax.swing.AbstractButton;
@@ -43,178 +45,145 @@ import org.pushingpixels.substance.internal.utils.SubstanceOutlineUtilities;
 import org.pushingpixels.substance.internal.utils.border.SubstanceButtonBorder;
 
 public abstract class BasePolygonShaper implements SubstanceButtonShaper {
-	protected CanonicalPath canonicalPath;
+    protected CanonicalPath canonicalPath;
 
-	protected double topCoef;
+    protected double topCoef;
 
-	protected double leftCoef;
+    protected double leftCoef;
 
-	protected double bottomCoef;
+    protected double bottomCoef;
 
-	protected double rightCoef;
+    protected double rightCoef;
 
-	public BasePolygonShaper(String resourceName, double topCoef,
-			double leftCoef, double bottomCoef, double rightCoef) {
-		this.topCoef = topCoef;
-		this.leftCoef = leftCoef;
-		this.bottomCoef = bottomCoef;
-		this.rightCoef = rightCoef;
+    public BasePolygonShaper(String resourceName, double topCoef, double leftCoef,
+            double bottomCoef, double rightCoef) {
+        this.topCoef = topCoef;
+        this.leftCoef = leftCoef;
+        this.bottomCoef = bottomCoef;
+        this.rightCoef = rightCoef;
 
-		ClassLoader cl = BasePolygonShaper.class.getClassLoader();
-		InputStream is = cl.getResourceAsStream(resourceName);
-		if (is == null) {
-			throw new IllegalArgumentException("Resource '" + resourceName
-					+ "' not found");
-		}
-		this.canonicalPath = ShaperRepository.read(is);
-	}
+        ClassLoader cl = BasePolygonShaper.class.getClassLoader();
+        InputStream is = cl.getResourceAsStream(resourceName);
+        if (is == null) {
+            throw new IllegalArgumentException("Resource '" + resourceName + "' not found");
+        }
+        this.canonicalPath = ShaperRepository.read(is);
+    }
 
-	public Dimension getPreferredSize(AbstractButton button,
-			Dimension uiPreferredSize) {
-		if (button.getClientProperty(SubstanceButtonUI.BORDER_COMPUTED) == null) {
-			boolean isBorderComputing = (button
-					.getClientProperty(SubstanceButtonUI.BORDER_COMPUTING) != null);
-			Border border = button.getBorder();
-			int uiw = uiPreferredSize.width;
-			int uih = uiPreferredSize.height;
-			if (border instanceof SubstanceButtonBorder) {
-				// SubstanceButtonBorder sborder = (SubstanceButtonBorder)
-				// button
-				// .getBorder();
-				// if (sborder.getButtonShaperClass() != this.getClass()) {
-				Insets bi = border.getBorderInsets(button);
-				if (!isBorderComputing)
-					button.setBorder(null);
-				uiPreferredSize.setSize(uiw - bi.left - bi.right, uih - bi.top
-						- bi.bottom);
-				// }
-			} else {
-				Insets bi = border.getBorderInsets(button);
-				if (!isBorderComputing)
-					button.setBorder(null);
-				uiPreferredSize.setSize(uiw - bi.left - bi.right, uih - bi.top
-						- bi.bottom);
-			}
-			if (!isBorderComputing) {
-				button.setBorder(this.getButtonBorder(button, uiPreferredSize));
-				button.putClientProperty(SubstanceButtonUI.BORDER_COMPUTED,
-						new String());
-			}
-		}
-		return uiPreferredSize;
-	}
+    public Dimension getPreferredSize(AbstractButton button, Dimension uiPreferredSize) {
+        if (button.getClientProperty(SubstanceButtonUI.BORDER_COMPUTED) == null) {
+            boolean isBorderComputing = (button
+                    .getClientProperty(SubstanceButtonUI.BORDER_COMPUTING) != null);
+            Border border = button.getBorder();
+            int uiw = uiPreferredSize.width;
+            int uih = uiPreferredSize.height;
+            if (border instanceof SubstanceButtonBorder) {
+                // SubstanceButtonBorder sborder = (SubstanceButtonBorder)
+                // button
+                // .getBorder();
+                // if (sborder.getButtonShaperClass() != this.getClass()) {
+                Insets bi = border.getBorderInsets(button);
+                if (!isBorderComputing)
+                    button.setBorder(null);
+                uiPreferredSize.setSize(uiw - bi.left - bi.right, uih - bi.top - bi.bottom);
+                // }
+            } else {
+                Insets bi = border.getBorderInsets(button);
+                if (!isBorderComputing)
+                    button.setBorder(null);
+                uiPreferredSize.setSize(uiw - bi.left - bi.right, uih - bi.top - bi.bottom);
+            }
+            if (!isBorderComputing) {
+                button.setBorder(this.getButtonBorder(button, uiPreferredSize));
+                button.putClientProperty(SubstanceButtonUI.BORDER_COMPUTED, new String());
+            }
+        }
+        return uiPreferredSize;
+    }
 
-	public Border getButtonBorder(AbstractButton button) {
-		return new SubstanceButtonBorder(this.getClass()) {
-			public Insets getBorderInsets(Component c) {
-				if (c instanceof AbstractButton) {
-					AbstractButton button = (AbstractButton) c;
-					if (SubstanceCoreUtilities.hasText(button)) {
-						if (button
-								.getClientProperty(SubstanceButtonUI.BORDER_COMPUTING) != null)
-							return new Insets(0, 0, 0, 0);
-						button.putClientProperty(
-								SubstanceButtonUI.BORDER_COMPUTING,
-								new String());
-						int width = button.getPreferredSize().width;
-						int height = button.getPreferredSize().height;
-						button.putClientProperty(
-								SubstanceButtonUI.BORDER_COMPUTING, null);
-						double finalWidth = width
-								* (1.0 + leftCoef + rightCoef);
-						double finalHeight = height
-								* (1.0 + topCoef + bottomCoef);
-						double finalRatio = finalWidth / finalHeight;
-						int dx = 0;
-						int dy = 0;
-						if (finalRatio > canonicalPath.getRatio()) {
-							// need dy
-							dy = (int) (finalWidth / canonicalPath.getRatio() - finalHeight);
-						} else {
-							// need dx
-							dx = (int) (canonicalPath.getRatio() * finalHeight - finalWidth);
-						}
-						return new Insets((int) (topCoef * height) + dy / 2,
-								(int) (leftCoef * width) + dx / 2,
-								(int) (bottomCoef * height) + dy / 2,
-								(int) (rightCoef * width) + dx / 2);
-					}
-				}
-				return new Insets(0, 0, 0, 0);
-			}
-		};
-	}
+    public Border getButtonBorder(AbstractButton button) {
+        return new SubstanceButtonBorder(this.getClass()) {
+            public Insets getBorderInsets(Component c) {
+                if (c instanceof AbstractButton) {
+                    AbstractButton button = (AbstractButton) c;
+                    if (SubstanceCoreUtilities.hasText(button)) {
+                        if (button.getClientProperty(SubstanceButtonUI.BORDER_COMPUTING) != null)
+                            return new Insets(0, 0, 0, 0);
+                        button.putClientProperty(SubstanceButtonUI.BORDER_COMPUTING, new String());
+                        int width = button.getPreferredSize().width;
+                        int height = button.getPreferredSize().height;
+                        button.putClientProperty(SubstanceButtonUI.BORDER_COMPUTING, null);
+                        double finalWidth = width * (1.0 + leftCoef + rightCoef);
+                        double finalHeight = height * (1.0 + topCoef + bottomCoef);
+                        double finalRatio = finalWidth / finalHeight;
+                        int dx = 0;
+                        int dy = 0;
+                        if (finalRatio > canonicalPath.getRatio()) {
+                            // need dy
+                            dy = (int) (finalWidth / canonicalPath.getRatio() - finalHeight);
+                        } else {
+                            // need dx
+                            dx = (int) (canonicalPath.getRatio() * finalHeight - finalWidth);
+                        }
+                        return new Insets((int) (topCoef * height) + dy / 2,
+                                (int) (leftCoef * width) + dx / 2,
+                                (int) (bottomCoef * height) + dy / 2,
+                                (int) (rightCoef * width) + dx / 2);
+                    }
+                }
+                return new Insets(0, 0, 0, 0);
+            }
+        };
+    }
 
-	public Border getButtonBorder(AbstractButton button,
-			final Dimension preferredSize) {
-		return new SubstanceButtonBorder(this.getClass()) {
-			public Insets getBorderInsets(Component c) {
-				if (c instanceof AbstractButton) {
-					AbstractButton button = (AbstractButton) c;
-					if (SubstanceCoreUtilities.hasText(button)) {
-						int width = preferredSize.width;
-						int height = preferredSize.height;
-						double finalWidth = width
-								* (1.0 + leftCoef + rightCoef);
-						double finalHeight = height
-								* (1.0 + topCoef + bottomCoef);
-						double finalRatio = finalWidth / finalHeight;
-						int dx = 0;
-						int dy = 0;
-						if (finalRatio > canonicalPath.getRatio()) {
-							// need dy
-							dy = (int) (finalWidth / canonicalPath.getRatio() - finalHeight);
-						} else {
-							// need dx
-							dx = (int) (canonicalPath.getRatio() * finalHeight - finalWidth);
-						}
-						return new Insets((int) (topCoef * height) + dy / 2,
-								(int) (leftCoef * width) + dx / 2,
-								(int) (bottomCoef * height) + dy / 2,
-								(int) (rightCoef * width) + dx / 2);
-					}
-				}
-				return new Insets(0, 0, 0, 0);
-			}
-		};
-	}
+    public Border getButtonBorder(AbstractButton button, final Dimension preferredSize) {
+        return new SubstanceButtonBorder(this.getClass()) {
+            public Insets getBorderInsets(Component c) {
+                if (c instanceof AbstractButton) {
+                    AbstractButton button = (AbstractButton) c;
+                    if (SubstanceCoreUtilities.hasText(button)) {
+                        int width = preferredSize.width;
+                        int height = preferredSize.height;
+                        double finalWidth = width * (1.0 + leftCoef + rightCoef);
+                        double finalHeight = height * (1.0 + topCoef + bottomCoef);
+                        double finalRatio = finalWidth / finalHeight;
+                        int dx = 0;
+                        int dy = 0;
+                        if (finalRatio > canonicalPath.getRatio()) {
+                            // need dy
+                            dy = (int) (finalWidth / canonicalPath.getRatio() - finalHeight);
+                        } else {
+                            // need dx
+                            dx = (int) (canonicalPath.getRatio() * finalHeight - finalWidth);
+                        }
+                        return new Insets((int) (topCoef * height) + dy / 2,
+                                (int) (leftCoef * width) + dx / 2,
+                                (int) (bottomCoef * height) + dy / 2,
+                                (int) (rightCoef * width) + dx / 2);
+                    }
+                }
+                return new Insets(0, 0, 0, 0);
+            }
+        };
+    }
 
-	// @Override
-	// public GeneralPath getButtonOutline(AbstractButton button) {
-	// return getButtonOutline(button, null);
-	// }
-	//
-	// @Override
-	// public GeneralPath getButtonOutline(AbstractButton button, Insets insets)
-	// {
-	// int width = button.getWidth();
-	// int height = button.getHeight();
-	// return this.getButtonOutline(button, insets, width, height);
-	// }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.pushingpixels.substance.shaper.SubstanceButtonShaper#getButtonOutline(javax
-	 * .swing.AbstractButton, java.awt.Insets, int, int, boolean)
-	 */
-	@Override
-	public GeneralPath getButtonOutline(AbstractButton button, Insets insets,
-			int width, int height, boolean isInner) {
-		if (SubstanceCoreUtilities.hasText(button))
-			return this.canonicalPath.getPath(width, height, insets);
+    @Override
+    public Shape getButtonOutline(AbstractButton button, float extraInsets, float width,
+            float height, boolean isInner) {
+        if (SubstanceCoreUtilities.hasText(button))
+            return this.canonicalPath.getPath(width, height, extraInsets);
 
-		return SubstanceOutlineUtilities.getBaseOutline(width, height, 2, null,
-				insets);
-	}
+        return SubstanceOutlineUtilities.getBaseOutline(width, height, 2, null, 
+                extraInsets);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.button.SubstanceButtonShaper#isProportionate()
-	 */
-	public boolean isProportionate() {
-		return false;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.pushingpixels.substance.button.SubstanceButtonShaper#isProportionate()
+     */
+    public boolean isProportionate() {
+        return false;
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2010 Substance Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2005-2017 Substance Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -31,8 +31,16 @@ package org.pushingpixels.substance.skinpack;
 
 import java.awt.Color;
 
-import org.pushingpixels.substance.api.*;
-import org.pushingpixels.substance.api.colorscheme.*;
+import org.pushingpixels.substance.api.ColorSchemeAssociationKind;
+import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceColorScheme;
+import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
+import org.pushingpixels.substance.api.SubstanceSkin;
+import org.pushingpixels.substance.api.colorscheme.BottleGreenColorScheme;
+import org.pushingpixels.substance.api.colorscheme.CharcoalColorScheme;
+import org.pushingpixels.substance.api.colorscheme.EbonyColorScheme;
+import org.pushingpixels.substance.api.colorscheme.SunsetColorScheme;
 import org.pushingpixels.substance.api.painter.border.GlassBorderPainter;
 import org.pushingpixels.substance.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.substance.api.painter.fill.GlassFillPainter;
@@ -93,8 +101,8 @@ public class StreetlightsSkin extends SubstanceSkin {
 		// set dark green as watermark scheme
 		this.watermarkScheme = new BottleGreenColorScheme().shiftBackground(
 				new Color(0, 50, 0), 0.7);
-		this.setSelectedTabFadeStart(1.0);
-		this.setSelectedTabFadeEnd(1.0);
+		this.setTabFadeStart(1.0);
+		this.setTabFadeEnd(1.0);
 
 		// additional skin settings
 		this.buttonShaper = new ClassicButtonShaper();

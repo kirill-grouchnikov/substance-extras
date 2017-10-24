@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2010 Substance Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2005-2017 Substance Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,7 +31,7 @@ package org.pushingpixels.substance.shaperpack;
 
 public class ButterflyButtonShaper extends BasePolygonShaper {
 	public ButterflyButtonShaper() {
-		super("org/jvnet/substance/shaperpack/butterfly.shape", 1.3, 0.4, 1.1,
+		super("org/pushingpixels/substance/shaperpack/butterfly.shape", 1.3, 0.4, 1.1,
 				0.4);
 	}
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2010 Substance Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2005-2017 Substance Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,7 +31,7 @@ package org.pushingpixels.substance.shaperpack;
 
 public class RhinoButtonShaper extends BasePolygonShaper {
 	public RhinoButtonShaper() {
-		super("org/jvnet/substance/shaperpack/rhino.shape", 0.3, 1.0, 1.0, 0.2);
+		super("org/pushingpixels/substance/shaperpack/rhino.shape", 0.3, 1.0, 1.0, 0.2);
 	}
 
 	public String getDisplayName() {

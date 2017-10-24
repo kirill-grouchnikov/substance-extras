@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2010 Substance Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2005-2017 Substance Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -29,14 +29,23 @@
  */
 package test;
 
-import java.awt.*;
+import java.awt.BorderLayout;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.shaper.SubstanceButtonShaper;
-import org.pushingpixels.substance.api.skin.SubstanceBusinessBlackSteelLookAndFeel;
-import org.pushingpixels.substance.shaperpack.*;
+import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
+import org.pushingpixels.substance.shaperpack.ButterflyButtonShaper;
+import org.pushingpixels.substance.shaperpack.DolphinButtonShaper;
+import org.pushingpixels.substance.shaperpack.FishButtonShaper;
+import org.pushingpixels.substance.shaperpack.FootButtonShaper;
+import org.pushingpixels.substance.shaperpack.IceCreamButtonShaper;
+import org.pushingpixels.substance.shaperpack.RaceCarButtonShaper;
+import org.pushingpixels.substance.shaperpack.RhinoButtonShaper;
+import org.pushingpixels.substance.shaperpack.StegosaurusButtonShaper;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
@@ -86,14 +95,10 @@ public class TestButtons extends JFrame {
 	}
 
 	public static void main(String... args) {
-		try {
-			UIManager
-					.setLookAndFeel(new SubstanceBusinessBlackSteelLookAndFeel());
-		} catch (Exception exc) {
-		}
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
+		        SubstanceLookAndFeel.setSkin(new BusinessBlackSteelSkin());
 				TestButtons tb = new TestButtons();
 				tb.invalidate();
 				System.out.println(tb.getPreferredSize());

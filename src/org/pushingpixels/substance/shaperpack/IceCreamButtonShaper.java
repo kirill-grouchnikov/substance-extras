@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2010 Substance Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2005-2017 Substance Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,7 +31,7 @@ package org.pushingpixels.substance.shaperpack;
 
 public class IceCreamButtonShaper extends BasePolygonShaper {
 	public IceCreamButtonShaper() {
-		super("org/jvnet/substance/shaperpack/icecream.shape", 0.6, 0.4, 0.6,
+		super("org/pushingpixels/substance/shaperpack/icecream.shape", 0.6, 0.4, 0.6,
 				0.4);
 	}
 

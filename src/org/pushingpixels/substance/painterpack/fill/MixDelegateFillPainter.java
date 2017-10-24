@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2010 Substance Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2005-2017 Substance Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -29,7 +29,10 @@
  */
 package org.pushingpixels.substance.painterpack.fill;
 
-import java.awt.*;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Shape;
 import java.awt.image.BufferedImage;
 
 import org.pushingpixels.substance.api.SubstanceColorScheme;
@@ -80,18 +83,19 @@ public class MixDelegateFillPainter implements SubstanceFillPainter {
 	}
 
 	@Override
-	public void paintContourBackground(Graphics g, Component comp, int width,
-			int height, Shape contour, boolean isFocused,
-			SubstanceColorScheme fillScheme, boolean hasShine) {
+	public void paintContourBackground(Graphics g, Component comp, float width, float height,
+	        Shape contour, boolean isFocused, SubstanceColorScheme fillScheme, boolean hasShine) {
 		if (fillScheme instanceof MixColorScheme) {
 			MixColorScheme mixColorScheme = (MixColorScheme) fillScheme;
 			SubstanceColorScheme[] origSchemes = mixColorScheme
 					.getOrigSchemes();
 
+	        int iWidth = (int) Math.ceil(width);
+	        int iHeight = (int) Math.ceil(height);
 			BufferedImage[] components = new BufferedImage[origSchemes.length];
 			for (int i = 0; i < origSchemes.length; i++) {
-				components[i] = SubstanceCoreUtilities.getBlankImage(width,
-						height);
+				components[i] = SubstanceCoreUtilities.getBlankImage(iWidth,
+						iHeight);
 				Graphics2D g2d = components[i].createGraphics();
 				this.delegate.paintContourBackground(g2d, comp, width, height,
 						contour, isFocused, origSchemes[i], hasShine);

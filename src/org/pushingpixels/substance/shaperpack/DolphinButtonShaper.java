@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2010 Substance Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2005-2017 Substance Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -31,7 +31,7 @@ package org.pushingpixels.substance.shaperpack;
 
 public class DolphinButtonShaper extends BasePolygonShaper {
 	public DolphinButtonShaper() {
-		super("org/jvnet/substance/shaperpack/dolphin.shape", 1.0, 1.1, 1.3,
+		super("org/pushingpixels/substance/shaperpack/dolphin.shape", 1.0, 1.1, 1.3,
 				0.3);
 	}
 

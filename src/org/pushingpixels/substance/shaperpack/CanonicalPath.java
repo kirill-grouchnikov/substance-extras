@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2010 Substance Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2005-2017 Substance Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -29,69 +29,61 @@
  */
 package org.pushingpixels.substance.shaperpack;
 
-import java.awt.Insets;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 public class CanonicalPath {
-	private ArrayList<Point2D> majorPoints;
+    private ArrayList<Point2D> majorPoints;
 
-	private ArrayList<Point2D> minorPoints;
+    private ArrayList<Point2D> minorPoints;
 
-	private double ratio;
+    private double ratio;
 
-	public CanonicalPath(ArrayList<Point2D> majorPoints,
-			ArrayList<Point2D> minorPoints, double ratio) {
-		if (majorPoints.size() != minorPoints.size())
-			throw new IllegalArgumentException(
-					"Sizes of major and minor must be equal");
-		this.majorPoints = majorPoints;
-		this.minorPoints = minorPoints;
-		this.ratio = ratio;
-	}
+    public CanonicalPath(ArrayList<Point2D> majorPoints, ArrayList<Point2D> minorPoints,
+            double ratio) {
+        if (majorPoints.size() != minorPoints.size())
+            throw new IllegalArgumentException("Sizes of major and minor must be equal");
+        this.majorPoints = majorPoints;
+        this.minorPoints = minorPoints;
+        this.ratio = ratio;
+    }
 
-	public GeneralPath getPath(int width, int height, Insets insets) {
-		GeneralPath path = new GeneralPath();
-		if (this.majorPoints.size() < 2)
-			return path;
+    public GeneralPath getPath(float width, float height, float insets) {
+        GeneralPath path = new GeneralPath();
+        if (this.majorPoints.size() < 2)
+            return path;
 
-		int xs = (insets == null) ? 0 : insets.left;
-		int ys = (insets == null) ? 0 : insets.top;
-		if (insets != null) {
-			width -= (insets.left + insets.right);
-			height -= (insets.top + insets.bottom);
-		}
+        float xs = insets;
+        float ys = insets;
+        width -= 2 * insets;
+        height -= 2 * insets;
 
-		path.moveTo((float) (xs + width * this.majorPoints.get(0).getX()),
-				(float) (ys + height * this.majorPoints.get(0).getY()));
-		for (int i = 1; i < this.majorPoints.size(); i++) {
-			path.quadTo((float) (xs + width
-					* this.minorPoints.get(i - 1).getX()), (float) (ys + height
-					* this.minorPoints.get(i - 1).getY()), (float) (xs + width
-					* this.majorPoints.get(i).getX()), (float) (ys + height
-					* this.majorPoints.get(i).getY()));
-		}
-		path.quadTo((float) (xs + width
-				* this.minorPoints.get(this.minorPoints.size() - 1).getX()),
-				(float) (ys + height
-						* this.minorPoints.get(this.minorPoints.size() - 1)
-								.getY()), (float) (xs + width
-						* this.majorPoints.get(0).getX()), (float) (ys + height
-						* this.majorPoints.get(0).getY()));
-		return path;
-	}
+        path.moveTo((float) (xs + width * this.majorPoints.get(0).getX()),
+                (float) (ys + height * this.majorPoints.get(0).getY()));
+        for (int i = 1; i < this.majorPoints.size(); i++) {
+            path.quadTo(xs + width * this.minorPoints.get(i - 1).getX(),
+                    ys + height * this.minorPoints.get(i - 1).getY(),
+                    xs + width * this.majorPoints.get(i).getX(),
+                    ys + height * this.majorPoints.get(i).getY());
+        }
+        path.quadTo(xs + width * this.minorPoints.get(this.minorPoints.size() - 1).getX(),
+                ys + height * this.minorPoints.get(this.minorPoints.size() - 1).getY(),
+                xs + width * this.majorPoints.get(0).getX(),
+                ys + height * this.majorPoints.get(0).getY());
+        return path;
+    }
 
-	public ArrayList<Point2D> getMajorPoints() {
-		return majorPoints;
-	}
+    public ArrayList<Point2D> getMajorPoints() {
+        return majorPoints;
+    }
 
-	public ArrayList<Point2D> getMinorPoints() {
-		return minorPoints;
-	}
+    public ArrayList<Point2D> getMinorPoints() {
+        return minorPoints;
+    }
 
-	public double getRatio() {
-		return ratio;
-	}
+    public double getRatio() {
+        return ratio;
+    }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2010 Substance Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2005-2017 Substance Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -31,8 +31,14 @@ package org.pushingpixels.substance.skinpack;
 
 import java.awt.Color;
 
-import org.pushingpixels.substance.api.*;
-import org.pushingpixels.substance.api.colorscheme.*;
+import org.pushingpixels.substance.api.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceColorScheme;
+import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
+import org.pushingpixels.substance.api.SubstanceSkin;
+import org.pushingpixels.substance.api.colorscheme.AquaColorScheme;
+import org.pushingpixels.substance.api.colorscheme.BarbyPinkColorScheme;
+import org.pushingpixels.substance.api.colorscheme.BottleGreenColorScheme;
+import org.pushingpixels.substance.api.colorscheme.PurpleColorScheme;
 import org.pushingpixels.substance.api.painter.border.ClassicBorderPainter;
 import org.pushingpixels.substance.api.painter.decoration.Glass3DDecorationPainter;
 import org.pushingpixels.substance.api.painter.fill.GlassFillPainter;
