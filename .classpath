@@ -5,10 +5,5 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/substance"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/laf-plugin"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/laf-widget"/>
-	<classpathentry kind="lib" path="/substance/lib/test/fest-assert-1.2.jar"/>
-	<classpathentry kind="lib" path="/substance/lib/test/fest-reflect-1.2.jar"/>
-	<classpathentry kind="lib" path="/substance/lib/test/fest-swing-1.2.jar"/>
-	<classpathentry kind="lib" path="/substance/lib/test/fest-util-1.1.2.jar"/>
-	<classpathentry kind="lib" path="/substance/lib/build/forms-1.2.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

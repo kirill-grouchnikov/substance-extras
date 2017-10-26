@@ -32,62 +32,48 @@ package org.pushingpixels.substance.skinpack;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.pushingpixels.substance.api.SubstanceSkinPlugin;
 import org.pushingpixels.substance.api.skin.SkinInfo;
-import org.pushingpixels.substance.internal.plugin.SubstanceSkinPlugin;
 
 /**
  * Core plugin for skins. See
- * {@link org.pushingpixels.substance.internal.plugin.SubstanceSkinPlugin} interface. This class
- * is <b>for internal use only</b>.
+ * {@link org.pushingpixels.substance.api.SubstanceSkinPlugin} interface. This class is
+ * <b>for internal use only</b>.
  * 
  * @author Kirill Grouchnikov.
  */
-public class ExtrasSkinPlugin implements SubstanceSkinPlugin {
-	/**
-	 * Creates info object on a single skin.
-	 * 
-	 * @param displayName
-	 *            Skin display name.
-	 * @param skinClass
-	 *            Skin class.
-	 * @param isDefault
-	 *            Indication whether the specified skin is default.
-	 * @return Info object on the specified skin.
-	 */
-	private static SkinInfo create(String displayName, Class<?> skinClass,
-			boolean isDefault) {
-		SkinInfo result = new SkinInfo(displayName, skinClass.getName());
-		result.setDefault(isDefault);
-		return result;
-	}
+public class SubstanceExtrasSkinPlugin implements SubstanceSkinPlugin {
+    /**
+     * Creates info object on a single skin.
+     * 
+     * @param displayName
+     *            Skin display name.
+     * @param skinClass
+     *            Skin class.
+     * @param isDefault
+     *            Indication whether the specified skin is default.
+     * @return Info object on the specified skin.
+     */
+    private static SkinInfo create(String displayName, Class<?> skinClass, boolean isDefault) {
+        SkinInfo result = new SkinInfo(displayName, skinClass.getName());
+        result.setDefault(isDefault);
+        return result;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.plugin.SubstanceSkinPlugin#getSkins()
-	 */
-	public Set<SkinInfo> getSkins() {
-		Set<SkinInfo> result = new HashSet<SkinInfo>();
-		result
-				.add(create(FieldOfWheatSkin.NAME, FieldOfWheatSkin.class,
-						false));
-		result.add(create(FindingNemoSkin.NAME, FindingNemoSkin.class, false));
-		result.add(create(GreenMagicSkin.NAME, GreenMagicSkin.class, false));
-		result.add(create(MangoSkin.NAME, MangoSkin.class, false));
-		result.add(create(MagmaSkin.NAME, MagmaSkin.class, false));
-		result
-				.add(create(StreetlightsSkin.NAME, StreetlightsSkin.class,
-						false));
-		return result;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.pushingpixels.substance.plugin.SubstanceSkinPlugin#getDefaultSkinClassName()
-	 */
-	public String getDefaultSkinClassName() {
-		return null;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.pushingpixels.substance.plugin.SubstanceSkinPlugin#getSkins()
+     */
+    @Override
+    public Set<SkinInfo> getSkins() {
+        Set<SkinInfo> result = new HashSet<SkinInfo>();
+        result.add(create(FieldOfWheatSkin.NAME, FieldOfWheatSkin.class, false));
+        result.add(create(FindingNemoSkin.NAME, FindingNemoSkin.class, false));
+        result.add(create(GreenMagicSkin.NAME, GreenMagicSkin.class, false));
+        result.add(create(MangoSkin.NAME, MangoSkin.class, false));
+        result.add(create(MagmaSkin.NAME, MagmaSkin.class, false));
+        result.add(create(StreetlightsSkin.NAME, StreetlightsSkin.class, false));
+        return result;
+    }
 }
