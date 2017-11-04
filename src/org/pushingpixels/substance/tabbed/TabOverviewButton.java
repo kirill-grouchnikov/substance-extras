@@ -38,12 +38,10 @@ import javax.swing.SwingConstants;
 import javax.swing.plaf.UIResource;
 
 import org.pushingpixels.substance.api.SubstanceColorScheme;
-import org.pushingpixels.substance.internal.hidpi.HiDpiAwareIcon;
-import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
+import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 import org.pushingpixels.substance.internal.utils.icon.TransitionAwareIcon;
-import org.pushingpixels.substance.svg.ic_graphic_eq_black_24px;
 
 /**
  * Button that activates the tab overview dialog.
@@ -64,14 +62,13 @@ public class TabOverviewButton extends JButton implements UIResource {
      */
     public TabOverviewButton(final JTabbedPane tabPane) {
         this.setFocusable(false);
-        
+
         int dimension = SubstanceSizeUtils.getControlFontSize();
-        HiDpiAwareIcon initialIcon = new HiDpiAwareIcon(
-                ic_graphic_eq_black_24px.of(dimension, dimension));
-        this.setIcon(new TransitionAwareIcon(this,
-                (SubstanceColorScheme scheme) -> new HiDpiAwareIcon(initialIcon.colorize(
-                        SubstanceColorUtilities.getAlphaColor(scheme.getForegroundColor(), 160))),
-                "substance.widget.extras.taboverview"));
+        this.setIcon(
+                new TransitionAwareIcon(this,
+                        (SubstanceColorScheme scheme) -> SubstanceLookAndFeel.getIconPack()
+                                .getInspectIcon(dimension, scheme),
+                        "substance.widget.extras.taboverview"));
         SubstanceCoreUtilities.markButtonAsFlat(this);
         this.setToolTipText(
                 TabPreviewUtilities.getLabelBundle().getString("TabbedPane.overviewButtonTooltip"));
