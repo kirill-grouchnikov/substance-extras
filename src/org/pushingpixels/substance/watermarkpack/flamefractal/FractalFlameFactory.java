@@ -187,8 +187,6 @@ public class FractalFlameFactory {
 			ifs.apply(bc);
 			count++;
 			if (count > 20) {
-				int x = (int) (width * (1.0 + bc.getX()) / 2);
-				int y = (int) (height * (1.0 + bc.getY()) / 2);
 				// if ((x >= 0) && (x < width) && (y >= 0) && (y < height)) {
 				// int pos = y * width + x;
 				// vals[pos]++;
@@ -301,8 +299,6 @@ public class FractalFlameFactory {
 			ifs.apply(bc);
 			count++;
 			if (count > 20) {
-				int x = (int) (width * (1.0 + bc.getX()) / 2);
-				int y = (int) (height * (1.0 + bc.getY()) / 2);
 
 				double xc = width * (1.0 + bc.getX()) / 2;
 				double yc = height * (1.0 + bc.getY()) / 2;
