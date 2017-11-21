@@ -19,7 +19,7 @@ import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
 
-import org.pushingpixels.substance.api.AnimationConfigurationManager;
+import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.internal.contrib.jgoodies.looks.ShadowPopupBorder;
 import org.pushingpixels.trident.Timeline;

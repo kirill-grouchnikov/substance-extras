@@ -52,8 +52,8 @@ import javax.swing.JWindow;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
-import org.pushingpixels.substance.api.AnimationConfigurationManager;
 import org.pushingpixels.substance.api.hidpi.HiDpiAwareIcon;
+import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.ui.SubstanceTabbedPaneUI;
 import org.pushingpixels.substance.tabbed.TabPreviewThread.TabPreviewInfo;
 import org.pushingpixels.trident.Timeline;

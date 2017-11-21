@@ -31,8 +31,8 @@ package org.pushingpixels.substance.colorschemepack;
 
 import java.awt.Color;
 
-import org.pushingpixels.substance.api.SubstanceColorScheme;
 import org.pushingpixels.substance.api.colorscheme.BaseColorScheme;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 
 /**
  * Mixed color scheme.

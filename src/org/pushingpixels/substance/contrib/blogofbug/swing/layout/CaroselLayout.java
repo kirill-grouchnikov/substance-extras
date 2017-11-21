@@ -15,10 +15,18 @@
 
 package org.pushingpixels.substance.contrib.blogofbug.swing.layout;
 
-import java.awt.*;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Insets;
+import java.awt.LayoutManager;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
+import java.util.ConcurrentModificationException;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 import javax.swing.Timer;
 

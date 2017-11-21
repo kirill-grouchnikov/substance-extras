@@ -37,8 +37,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
 import javax.swing.plaf.UIResource;
 
-import org.pushingpixels.substance.api.SubstanceColorScheme;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 import org.pushingpixels.substance.internal.utils.icon.TransitionAwareIcon;
@@ -66,7 +66,7 @@ public class TabOverviewButton extends JButton implements UIResource {
         int dimension = SubstanceSizeUtils.getControlFontSize();
         this.setIcon(
                 new TransitionAwareIcon(this,
-                        (SubstanceColorScheme scheme) -> SubstanceLookAndFeel.getIconPack()
+                        (SubstanceColorScheme scheme) -> SubstanceCortex.GlobalScope.getIconPack()
                                 .getInspectIcon(dimension, scheme),
                         "substance.widget.extras.taboverview"));
         SubstanceCoreUtilities.markButtonAsFlat(this);

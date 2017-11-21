@@ -42,9 +42,9 @@ import java.util.Map;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 
-import org.pushingpixels.substance.internal.utils.WidgetUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.TrackableThread;
+import org.pushingpixels.substance.internal.utils.WidgetUtilities;
 import org.pushingpixels.substance.tabbed.DeltaQueue.DeltaMatcher;
 import org.pushingpixels.substance.tabbed.DeltaQueue.Deltable;
 

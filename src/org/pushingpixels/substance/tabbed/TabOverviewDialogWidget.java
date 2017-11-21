@@ -51,6 +51,52 @@ import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
  */
 public class TabOverviewDialogWidget extends SubstanceWidget<JTabbedPane> {
     /**
+     * Enumerates all available kinds of tab overview dialog.
+     * 
+     * @author Kirill Grouchnikov
+     */
+    public final static class TabOverviewKind {
+        /**
+         * Shows a grid with all tab thumbnails.
+         */
+        public static final TabOverviewKind GRID = new TabOverviewKind("grid");
+
+        /**
+         * Shows a round carousel with all tab thumbnails.
+         */
+        public static final TabOverviewKind ROUND_CAROUSEL = new TabOverviewKind("round carousel");
+
+        /**
+         * Shows a menu carousel with all tab thumbnails.
+         */
+        public static final TabOverviewKind MENU_CAROUSEL = new TabOverviewKind("menu carousel");
+
+        /**
+         * Animation kind name.
+         */
+        private String name;
+
+        /**
+         * Creates a new tab overview kind.
+         * 
+         * @param name
+         *            Tab overview kind name.
+         */
+        public TabOverviewKind(String name) {
+            this.name = name;
+        }
+
+        /**
+         * Returns the name of <code>this</code> animation.
+         * 
+         * @return Name of <code>this</code> animation.
+         */
+        public String getName() {
+            return this.name;
+        }
+    }
+
+    /**
      * Tab overview button.
      */
     protected TabOverviewButton overviewButton;

@@ -34,7 +34,7 @@ import java.util.ResourceBundle;
 
 import javax.swing.JTabbedPane;
 
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceCortex;
 
 public class TabPreviewUtilities {
     /**
@@ -91,7 +91,7 @@ public class TabPreviewUtilities {
         // fix for RFE 157 on Substance (allowing custom class loader for
         // resource bundles which can remove server calls
         // in applets)
-        ClassLoader labelBundleClassLoader = SubstanceLookAndFeel.getLabelBundleClassLoader();
+        ClassLoader labelBundleClassLoader = SubstanceCortex.GlobalScope.getLabelBundleClassLoader();
         if (labelBundleClassLoader == null) {
             return ResourceBundle.getBundle("org.pushingpixels.substance.tabbed.resources.Labels",
                     Locale.getDefault());

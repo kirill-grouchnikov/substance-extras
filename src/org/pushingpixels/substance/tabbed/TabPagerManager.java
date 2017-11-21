@@ -44,7 +44,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JWindow;
 import javax.swing.SwingUtilities;
 
-import org.pushingpixels.substance.api.AnimationConfigurationManager;
+import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.tabbed.TabPreviewThread.TabPreviewCallback;
 import org.pushingpixels.substance.tabbed.TabPreviewThread.TabPreviewInfo;
 import org.pushingpixels.trident.Timeline;

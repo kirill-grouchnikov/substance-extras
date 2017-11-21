@@ -15,7 +15,9 @@
 
 package org.pushingpixels.substance.contrib.blogofbug.swing.borders;
 
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Insets;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 

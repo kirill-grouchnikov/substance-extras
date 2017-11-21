@@ -43,8 +43,8 @@ import java.awt.Transparency;
 import java.awt.geom.GeneralPath;
 import java.awt.image.BufferedImage;
 
-import org.pushingpixels.substance.api.ColorSchemeTransform;
-import org.pushingpixels.substance.api.SubstanceColorScheme;
+import org.pushingpixels.substance.api.colorscheme.ColorSchemeTransform;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 

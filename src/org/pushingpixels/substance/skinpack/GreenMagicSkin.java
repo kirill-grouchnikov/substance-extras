@@ -31,13 +31,13 @@ package org.pushingpixels.substance.skinpack;
 
 import java.awt.Color;
 
-import org.pushingpixels.substance.api.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceColorScheme;
 import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.colorscheme.AquaColorScheme;
 import org.pushingpixels.substance.api.colorscheme.BottleGreenColorScheme;
 import org.pushingpixels.substance.api.colorscheme.LimeGreenColorScheme;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.ClassicBorderPainter;
 import org.pushingpixels.substance.api.painter.decoration.Glass3DDecorationPainter;
 import org.pushingpixels.substance.api.painter.fill.GlassFillPainter;

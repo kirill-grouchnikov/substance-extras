@@ -37,7 +37,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 
-import org.pushingpixels.substance.api.SubstanceConstants;
+import org.pushingpixels.substance.tabbed.TabOverviewDialogWidget.TabOverviewKind;
 
 /**
  * Base class for tab preview painters.
@@ -225,8 +225,8 @@ public abstract class TabPreviewPainter {
 	 * @return Tab overview kind for the specified tabbed pane.
 	 * @since version 3.0
 	 */
-	public SubstanceConstants.TabOverviewKind getOverviewKind(JTabbedPane tabPane) {
-		return SubstanceConstants.TabOverviewKind.GRID;
+	public TabOverviewKind getOverviewKind(JTabbedPane tabPane) {
+		return TabOverviewKind.GRID;
 	}
 
 	/**

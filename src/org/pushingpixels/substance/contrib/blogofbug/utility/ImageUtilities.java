@@ -36,6 +36,7 @@ import java.text.AttributedCharacterIterator;
 import java.text.AttributedString;
 import java.util.Hashtable;
 import java.util.LinkedList;
+
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 

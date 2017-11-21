@@ -73,17 +73,17 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-import org.pushingpixels.substance.api.AnimationConfigurationManager;
 import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceColorScheme;
-import org.pushingpixels.substance.api.SubstanceConstants;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.contrib.blogofbug.swing.components.JCarosel;
 import org.pushingpixels.substance.contrib.blogofbug.swing.components.JCarouselMenu;
 import org.pushingpixels.substance.contrib.blogofbug.swing.components.ReflectedImageLabel;
+import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.contrib.jgoodies.looks.ShadowPopupBorder;
 import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceImageCreator;
 import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
+import org.pushingpixels.substance.tabbed.TabOverviewDialogWidget.TabOverviewKind;
 import org.pushingpixels.substance.tabbed.TabPreviewThread.TabPreviewInfo;
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.Timeline.TimelineState;
@@ -1021,12 +1021,12 @@ public class TabOverviewDialog extends JDialog {
      * @throws HeadlessException
      * @see #getOverviewDialog(JTabbedPane)
      */
-    private TabOverviewDialog(final JTabbedPane tabPane, SubstanceConstants.TabOverviewKind overviewKind, Frame owner,
+    private TabOverviewDialog(final JTabbedPane tabPane, TabOverviewKind overviewKind, Frame owner,
             boolean modal, int dialogWidth, int dialogHeight) throws HeadlessException {
         super(owner, modal);
         this.tabPane = tabPane;
         this.setLayout(new BorderLayout());
-        if (overviewKind == SubstanceConstants.TabOverviewKind.GRID) {
+        if (overviewKind == TabOverviewKind.GRID) {
             TabGridOverviewPanel gridOverviewPanel = new TabGridOverviewPanel(dialogWidth,
                     dialogHeight);
             this.add(gridOverviewPanel, BorderLayout.CENTER);
@@ -1037,11 +1037,11 @@ public class TabOverviewDialog extends JDialog {
             // this.setGlassPane(glassPane);
             // glassPane.setVisible(true);
         }
-        if (overviewKind == SubstanceConstants.TabOverviewKind.ROUND_CAROUSEL) {
+        if (overviewKind == TabOverviewKind.ROUND_CAROUSEL) {
             this.add(new TabRoundCarouselOverviewPanel(dialogWidth, dialogHeight),
                     BorderLayout.CENTER);
         }
-        if (overviewKind == SubstanceConstants.TabOverviewKind.MENU_CAROUSEL) {
+        if (overviewKind == TabOverviewKind.MENU_CAROUSEL) {
             this.add(new TabMenuCarouselOverviewPanel(dialogWidth, dialogHeight),
                     BorderLayout.CENTER);
         }
@@ -1114,7 +1114,7 @@ public class TabOverviewDialog extends JDialog {
         JFrame frameForModality = previewPainter.getModalOwner(tabPane);
         boolean isModal = (frameForModality != null);
         Rectangle dialogScreenBounds = previewPainter.getPreviewDialogScreenBounds(tabPane);
-        SubstanceConstants.TabOverviewKind overviewKind = previewPainter.getOverviewKind(tabPane);
+        TabOverviewKind overviewKind = previewPainter.getOverviewKind(tabPane);
         final TabOverviewDialog overviewDialog = new TabOverviewDialog(tabPane, overviewKind,
                 frameForModality, isModal, dialogScreenBounds.width, dialogScreenBounds.height);
         overviewDialog.setTitle(title);
