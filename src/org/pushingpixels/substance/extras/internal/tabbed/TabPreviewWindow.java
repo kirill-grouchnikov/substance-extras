@@ -52,7 +52,7 @@ import javax.swing.JWindow;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
-import org.pushingpixels.substance.api.hidpi.HiDpiAwareIcon;
+import org.pushingpixels.substance.api.icon.SubstanceIcon;
 import org.pushingpixels.substance.extras.api.tabbed.TabPreviewPainter;
 import org.pushingpixels.substance.extras.internal.tabbed.TabPreviewThread.TabPreviewInfo;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
@@ -210,7 +210,7 @@ public class TabPreviewWindow extends JWindow implements ActionListener {
 								currTabPreviewInfo.getPreviewWidth(),
 								currTabPreviewInfo.getPreviewHeight());
 				TabPreviewWindow.this.getContentPane().removeAll();
-				final JLabel previewLabel = new PreviewLabel(new HiDpiAwareIcon(
+				final JLabel previewLabel = new PreviewLabel(new SubstanceIcon(
 						componentSnap));
 				TabPreviewWindow.this
 						.addComponentListener(new ComponentAdapter() {

@@ -74,10 +74,12 @@ public class TabPreviewUtilities {
         ClassLoader labelBundleClassLoader = SubstanceCortex.GlobalScope
                 .getLabelBundleClassLoader();
         if (labelBundleClassLoader == null) {
-            return ResourceBundle.getBundle("org.pushingpixels.substance.extras.api.tabbed.resources.Labels",
+            return ResourceBundle.getBundle(
+                    "org.pushingpixels.substance.extras.internal.tabbed.resources.Labels",
                     Locale.getDefault());
         } else {
-            return ResourceBundle.getBundle("org.pushingpixels.substance.extras.api.tabbed.resources.Labels",
+            return ResourceBundle.getBundle(
+                    "org.pushingpixels.substance.extras.internal.tabbed.resources.Labels",
                     Locale.getDefault(), labelBundleClassLoader);
         }
     }
