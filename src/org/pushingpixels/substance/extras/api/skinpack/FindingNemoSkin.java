@@ -32,8 +32,8 @@ package org.pushingpixels.substance.extras.api.skinpack;
 import java.awt.Color;
 
 import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.SubstanceSkin;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.AquaColorScheme;
 import org.pushingpixels.substance.api.colorscheme.BarbyPinkColorScheme;
 import org.pushingpixels.substance.api.colorscheme.BottleGreenColorScheme;

@@ -31,10 +31,10 @@ package org.pushingpixels.substance.extras.api.watermarkpack;
 
 import org.pushingpixels.substance.extras.api.painterpack.noise.CompoundNoiseFilter;
 import org.pushingpixels.substance.extras.api.painterpack.noise.FabricFilter;
-import org.pushingpixels.substance.extras.api.painterpack.noise.MedianBeakFilter;
-import org.pushingpixels.substance.extras.api.painterpack.noise.WoodFilter;
 import org.pushingpixels.substance.extras.api.painterpack.noise.FabricFilter.FabricFilterLink;
+import org.pushingpixels.substance.extras.api.painterpack.noise.MedianBeakFilter;
 import org.pushingpixels.substance.extras.api.painterpack.noise.NoiseFilter.TrigKind;
+import org.pushingpixels.substance.extras.api.painterpack.noise.WoodFilter;
 
 /**
  * Noise-base implementation of {@link

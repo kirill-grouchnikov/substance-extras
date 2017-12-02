@@ -581,7 +581,7 @@ public class TabOverviewDialog extends JDialog {
             this.caroselMenu.setCellRenderer(new MenuCarouselListCellRenderer(lcr));
             this.caroselMenu.setMenuScrollColor(UIManager.getColor("Panel.background"));
             this.caroselMenu.setUpDownColor(UIManager.getColor("Label.foreground"));
-            
+
             int controlFontSize = SubstanceSizeUtils.getControlFontSize();
             SubstanceColorScheme colorScheme = SubstanceColorSchemeUtilities
                     .getColorScheme(this.caroselMenu, ComponentState.DEFAULT);
@@ -1050,12 +1050,10 @@ public class TabOverviewDialog extends JDialog {
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.setResizable(false);
 
-        this.lafSwitchListener = new PropertyChangeListener() {
-            public void propertyChange(PropertyChangeEvent evt) {
-                if ("lookAndFeel".equals(evt.getPropertyName())) {
-                    SwingUtilities.invokeLater(
-                            () -> SwingUtilities.updateComponentTreeUI(TabOverviewDialog.this));
-                }
+        this.lafSwitchListener = (PropertyChangeEvent evt) -> {
+            if ("lookAndFeel".equals(evt.getPropertyName())) {
+                SwingUtilities.invokeLater(
+                        () -> SwingUtilities.updateComponentTreeUI(TabOverviewDialog.this));
             }
         };
 
@@ -1125,13 +1123,11 @@ public class TabOverviewDialog extends JDialog {
 
         // make sure that the tab overview dialog is disposed when
         // it loses focus
-        final PropertyChangeListener activeWindowListener = new PropertyChangeListener() {
-            public void propertyChange(PropertyChangeEvent evt) {
-                if ("activeWindow".equals(evt.getPropertyName())) {
-                    if (overviewDialog == evt.getOldValue()) {
-                        if (previewPainter.toDisposeOverviewOnFocusLoss()) {
-                            overviewDialog.dispose();
-                        }
+        final PropertyChangeListener activeWindowListener = (PropertyChangeEvent evt) -> {
+            if ("activeWindow".equals(evt.getPropertyName())) {
+                if (overviewDialog == evt.getOldValue()) {
+                    if (previewPainter.toDisposeOverviewOnFocusLoss()) {
+                        overviewDialog.dispose();
                     }
                 }
             }

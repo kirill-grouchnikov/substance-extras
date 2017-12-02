@@ -145,8 +145,8 @@ public class TabPagerManager {
         /*
          * (non-Javadoc)
          * 
-         * @see org.pushingpixels.lafwidget.tabbed.TabPreviewThread.
-         * TabPreviewCallback #start(javax.swing.JTabbedPane, int,
+         * @see org.pushingpixels.lafwidget.tabbed.TabPreviewThread. TabPreviewCallback
+         * #start(javax.swing.JTabbedPane, int,
          * org.pushingpixels.lafwidget.tabbed.TabPreviewThread.TabPreviewInfo)
          */
         public void start(JTabbedPane tabPane, int tabCount, TabPreviewInfo tabPreviewInfo) {
@@ -157,9 +157,8 @@ public class TabPagerManager {
         /*
          * (non-Javadoc)
          * 
-         * @see org.pushingpixels.lafwidget.tabbed.TabPreviewThread.
-         * TabPreviewCallback #offer(javax.swing.JTabbedPane, int,
-         * java.awt.image.BufferedImage)
+         * @see org.pushingpixels.lafwidget.tabbed.TabPreviewThread. TabPreviewCallback
+         * #offer(javax.swing.JTabbedPane, int, java.awt.image.BufferedImage)
          */
         public void offer(JTabbedPane tabPane, int tabIndex, BufferedImage componentSnap) {
             if (TabPagerManager.this.currTabbedPane != tabPane) {
@@ -188,8 +187,7 @@ public class TabPagerManager {
     }
 
     /**
-     * Constructs a new tab pager manager. Is made private to enforce single
-     * instance.
+     * Constructs a new tab pager manager. Is made private to enforce single instance.
      */
     private TabPagerManager() {
         // this.smallPreviewMap = new HashMap();
@@ -267,16 +265,14 @@ public class TabPagerManager {
         this.nextTabWindow.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        // fix for issue 177 in Substance (disallowing selection
-                        // of disabled tabs).
-                        TabPreviewPainter tpp = TabPreviewUtilities
-                                .getTabPreviewPainter(currTabbedPane);
-                        if (tpp.isSensitiveToEvents(currTabbedPane, nextTabIndex)) {
-                            hide();
-                            currTabbedPane.setSelectedIndex(nextTabIndex);
-                        }
+                SwingUtilities.invokeLater(() -> {
+                    // fix for issue 177 in Substance (disallowing selection
+                    // of disabled tabs).
+                    TabPreviewPainter tpp = TabPreviewUtilities
+                            .getTabPreviewPainter(currTabbedPane);
+                    if (tpp.isSensitiveToEvents(currTabbedPane, nextTabIndex)) {
+                        hide();
+                        currTabbedPane.setSelectedIndex(nextTabIndex);
                     }
                 });
             }
@@ -343,9 +339,8 @@ public class TabPagerManager {
      * @param tabbedPane
      *            Tabbed pane.
      * @param isForward
-     *            if <code>true</code>, the tabs are flipped one page (tab)
-     *            forward, if <code>false</code>, the tabs are flipped one page
-     *            (tab) backward.
+     *            if <code>true</code>, the tabs are flipped one page (tab) forward, if
+     *            <code>false</code>, the tabs are flipped one page (tab) backward.
      */
     public synchronized void page(JTabbedPane tabbedPane, boolean isForward) {
         this.setTabbedPane(tabbedPane);
@@ -419,9 +414,8 @@ public class TabPagerManager {
      * Flips the pages in the currently shown tabbed pane.
      * 
      * @param isForward
-     *            if <code>true</code>, the tabs are flipped one page (tab)
-     *            forward, if <code>false</code>, the tabs are flipped one page
-     *            (tab) backward.
+     *            if <code>true</code>, the tabs are flipped one page (tab) forward, if
+     *            <code>false</code>, the tabs are flipped one page (tab) backward.
      */
     public void page(boolean isForward) {
         if (this.currTabbedPane == null)
@@ -432,8 +426,7 @@ public class TabPagerManager {
     /**
      * Returns indication whether the tab pager windows are showing.
      * 
-     * @return <code>true</code> if the tab pager windows are visible,
-     *         <code>false</code> otherwise.
+     * @return <code>true</code> if the tab pager windows are visible, <code>false</code> otherwise.
      */
     public boolean isVisible() {
         return this.isVisible;
