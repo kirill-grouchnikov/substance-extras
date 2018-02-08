@@ -190,7 +190,8 @@ public class JCarosel extends GradientPanel implements MouseListener,
 	 * @deprecated This function will be removed, use add(String imageURL)
 	 *             instead.
 	 */
-	public Component add(String imageURL, int width, int height) {
+	@SuppressWarnings("deprecation")
+    public Component add(String imageURL, int width, int height) {
 		ReflectedImageLabel component = new ReflectedImageLabel(imageURL,
 				width, height);
 		component.addMouseListener(this);
@@ -212,7 +213,8 @@ public class JCarosel extends GradientPanel implements MouseListener,
 	 * @deprecated This function will be removed, use setNeutralWidth() on
 	 *             JCarousel instead.
 	 */
-	public Component add(String imageURL, String text, int width, int height) {
+	@SuppressWarnings("deprecation")
+    public Component add(String imageURL, String text, int width, int height) {
 		ReflectedImageLabel component = new ReflectedImageLabel(imageURL, text,
 				width, height);
 		component.addMouseListener(this);
