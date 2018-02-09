@@ -38,6 +38,7 @@ import java.awt.image.BufferedImage;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.fill.SubstanceFillPainter;
 import org.pushingpixels.substance.extras.api.colorschemepack.MixColorScheme;
+import org.pushingpixels.substance.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 /**
@@ -110,8 +111,10 @@ public class MixDelegateFillPainter implements SubstanceFillPainter {
 				current = SubstanceCoreUtilities.blendImagesHorizontal(current,
 						components[i], start, end);
 			}
+			double scaleFactor = UIUtil.getScaleFactor();
 			Graphics2D g2d = (Graphics2D) g.create();
-			g2d.drawImage(current, 0, 0, null);
+			g2d.drawImage(current, 0, 0, (int) (current.getWidth() / scaleFactor),
+			        (int) (current.getHeight() / scaleFactor), null);
 			g2d.dispose();
 			return;
 		}
