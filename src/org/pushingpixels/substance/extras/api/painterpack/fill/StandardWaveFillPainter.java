@@ -29,28 +29,23 @@
  */
 package org.pushingpixels.substance.extras.api.painterpack.fill;
 
-import org.pushingpixels.substance.api.colorscheme.ColorSchemeTransform;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.fill.StandardFillPainter;
 import org.pushingpixels.substance.internal.colorscheme.HueShiftColorScheme;
 import org.pushingpixels.substance.internal.colorscheme.TintColorScheme;
 
 /**
- * Fill painter that returns images with standard fill appearance and wavy color
- * areas. This class is part of officially supported API.
+ * Fill painter that returns images with standard fill appearance and wavy color areas. This class
+ * is part of officially supported API.
  * 
  * @author Kirill Grouchnikov.
  */
 public class StandardWaveFillPainter extends WaveDelegateFillPainter {
-	/**
-	 * Creates a new gradient painter.
-	 */
-	public StandardWaveFillPainter() {
-		super("Standard Wave", new ColorSchemeTransform() {
-			public SubstanceColorScheme transform(SubstanceColorScheme scheme) {
-				return new HueShiftColorScheme(
-						new TintColorScheme(scheme, 0.15), 0.05);
-			}
-		}, new StandardFillPainter());
-	}
+    /**
+     * Creates a new gradient painter.
+     */
+    public StandardWaveFillPainter() {
+        super("Standard Wave", (SubstanceColorScheme scheme) -> new HueShiftColorScheme(
+                new TintColorScheme(scheme, 0.15), 0.05), new StandardFillPainter());
+    }
 }
