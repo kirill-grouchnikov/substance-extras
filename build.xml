@@ -53,9 +53,9 @@
     <property name="substance.basedir" value="${module.substance-extras.basedir}/../substance" />
     <property name="trident.basedir" value="${module.substance-extras.basedir}/../trident" />
 
-	<property name="substance.version" value="8.0.00-rc" />
-    <property name="substance.versionKey" value="8.0.0rc Wyoming" />
-    <property name="trident.version" value="1.5.00-rc" />
+	<property name="substance.version" value="8.0.00" />
+    <property name="substance.versionKey" value="8.0.0 Wyoming" />
+    <property name="trident.version" value="1.5.00" />
 
 	<path id="substance-extras.module.bootclasspath">
 		<!-- Paths to be included in compilation bootclasspath -->
